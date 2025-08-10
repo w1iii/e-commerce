@@ -7,7 +7,7 @@
     <title>Online shop</title>
 </head>
 <body>
-        <nav class="navbar" aria-label="Main navigation">
+ <nav class="navbar" aria-label="Main navigation">
         <button class="navbar-toggler" type="button" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -38,14 +38,10 @@
         </div>
     </nav>
 
-
-
     <div class="titlepage-container">
         <h1 class="header-title">Affordable Car Rentals Anytime, Anywhere!</h1>
-        <p class="p-subtitle">Need a ride for your next trip, business meeting, or weekend getaway? DriveYourWay Rentals offers a wide range of vehicles — from budget-friendly compacts to luxury SUVs — at prices you’ll love.</p>
+        <p class="p-subtitle">Need a ride for your next trip, business meeting, or weekend getaway? DriveYourWay Rentals offers a wide range of vehicles — from budget-friendly compacts to luxury SUVs — at prices you'll love.</p>
     </div>
-
-
 
     <div id="myCarousel" class="carousel">
         <div class="carousel-indicators">
@@ -56,11 +52,9 @@
         
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="/style/fe.jpg" alt="Car model 1" class="d-block">
-                <svg aria-hidden="true" class="placeholder-img" height="100%" preserveAspectRatio="xMidYMid slice" width="100%" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="100%" height="100%" fill="#6c757d"></rect>
-                </svg>
-                <div class="container">
+               <img src="/style/fe.jpg">
+
+                <div class="carousel-container">
                     <div class="carousel-caption text-start">
                         <h1>2025 Red Bull Racing RB21</h1>
                         <p class="opacity-75">Now for sale only for P50</p>
@@ -70,11 +64,8 @@
             </div>
             
             <div class="carousel-item">
-                <img src="/style/fer2.jpg" alt="Car model 2" class="s-block">
-                <svg aria-hidden="true" class="placeholder-img" height="100%" preserveAspectRatio="xMidYMid slice" width="100%" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="100%" height="100%" fill="#6c757d"></rect>
-                </svg>
-                <div class="container">
+                <img src="/style/fer.jpg">
+                <div class="carousel-container">
                     <div class="carousel-caption-mid">
                         <h1>2025 Ferrari SF-25</h1>
                         <p>Sale now for only P20!</p>
@@ -84,11 +75,9 @@
             </div>
             
             <div class="carousel-item">
-                <img src="/style/mcla.jpg" alt="Car model 3" class="s-block">
-                <svg aria-hidden="true" class="placeholder-img" height="100%" preserveAspectRatio="xMidYMid slice" width="100%" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="100%" height="100%" fill="#6c757d"></rect>
-                </svg>
-                <div class="container">
+                <img src="/style/mcla.jpg">
+
+                <div class="carousel-container">
                     <div class="carousel-caption text-end">
                         <h1>One more for good measure.</h1>
                         <p>Some representative placeholder content for the third slide of this carousel.</p>
@@ -109,53 +98,46 @@
         </button>
     </div>
 
-    <!-- Containers below carousel -->
-
-    <div class="main-cardcontainer">
-        <div class="card-container">
-    <div class="card">
-        <div class="card-content">
-            <h3 class="card-title">Want to Rent the Ferrari Amalfi?</h3>
-            <div class="card-date">Nov 12</div>
-            <p class="card-text">The 2026 Ferrari Amalfi is brand-new, with deliveries starting in early 2026 in Europe, followed by the U.S., priced from about €240,000 (~$280–$300k).</p>
-            <a href="#" class="card-link">
-                See Details
-                <svg class="chevron-icon" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-                </svg>
-            </a>
-        </div>
-        <div class="card-image">
-            <img src="/style/cont.jpg" alt="2026 Ferrari Amalfi">
-        </div>
-    </div> <!-- This closing div was missing! -->
-
-    </div>
-
-        <div class="card-container">
-            <div class="card">
-                <div class="card-content">
-                    <h3 class="card-title">2026 Ford Bronco – 60th Anniversary Edition</h3>
-                    <div class="card-date">Nov 12</div>
-                    <p class="card-text">Retro Heritage Style with the Sasquatch Package—an Off-Road Beast available in Los Angeles, CA for $349/day starting Spring 2026.</p>
-                    <a href="#" class="card-link">
-                        See Details
-                        <svg class="chevron-icon" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-                        </svg>
-                    </a>
-                </div>
-                <div class="card-image">
-                    <img src="/style/FORD.jpg" alt="2026 Ford Bronco 60th Anniversary" width="100%" height="100%">
-                </div>
+    <div class="two-column-container">
+        <div class="column column-dark">
+            <div class="content">
+                <h2 class="headline">Mitsubishi 3000GT</h2>
+                <p class="subheading">Rate: ₱15,000/day (plus fuel) <br> Pickup Location: Makati City</p>
             </div>
+            <div class="visual-element visual-light"><img src="/style/mitsu.jpg" width="400" height="200"></div>
+            <button class="select-car-btn"> Check this car > </button>
+        </div>
+        
+        <div class="column column-light">
+            <div class="content">
+                <h2 class="headline">Another headline</h2>
+                <p class="subheading">And an even wittier subheading.</p>
+            </div>
+            <div class="visual-element visual-dark"></div>
         </div>
     </div>
 
+    <div class="two-column-container">
+        <div class="column column-light">
+            <div class="content">
+                <h2 class="headline">Another headline</h2>
+                <p class="subheading">And an even wittier subheading.</p>
+            </div>
+            <div class="visual-element visual-dark"></div>
+        </div>
+        
 
-
-
+       <div class="column column-dark">
+            <div class="content">
+                <h2 class="headline">Another headline</h2>
+                <p class="subheading">And an even wittier subheading.</p>
+            </div>
+            <div class="visual-element visual-light"></div>
+        </div>
+    </div>
+  
     <script>
+        // Navbar functionality
         const toggler = document.querySelector('.navbar-toggler');
         const collapse = document.querySelector('.navbar-collapse');
 
@@ -165,7 +147,7 @@
             collapse.classList.toggle('show');
         });
 
-
+        // Dropdown functionality
         const dropdownToggle = document.querySelector('.dropdown-toggle');
         const dropdownMenu = document.querySelector('.dropdown-menu');
         const dropdown = document.querySelector('.dropdown');
@@ -174,14 +156,12 @@
             e.preventDefault();
             e.stopPropagation();
             
-   
             document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
                 if (menu !== dropdownMenu) {
                     menu.classList.remove('show');
                 }
             });
             
- 
             const isExpanded = dropdownToggle.getAttribute('aria-expanded') === 'true';
             dropdownToggle.setAttribute('aria-expanded', !isExpanded);
             dropdownMenu.classList.toggle('show');
@@ -194,12 +174,10 @@
             }
         });
 
-
         dropdownMenu.addEventListener('click', function(e) {
             e.stopPropagation();
         });
 
-   
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function() {
                 if (window.innerWidth <= 991) {
@@ -209,10 +187,8 @@
             });
         });
 
-
-        // carousel
-
-         let currentSlide = 0;
+        // Carousel functionality
+        let currentSlide = 0;
         const slides = document.querySelectorAll('.carousel-item');
         const indicators = document.querySelectorAll('.carousel-indicators button');
         const totalSlides = slides.length;
@@ -235,18 +211,14 @@
             showSlide(currentSlide - 1);
         }
 
-       
         document.querySelector('.carousel-control-next').addEventListener('click', nextSlide);
         document.querySelector('.carousel-control-prev').addEventListener('click', prevSlide);
 
-     
         indicators.forEach((indicator, index) => {
             indicator.addEventListener('click', () => showSlide(index));
         });
 
-
         setInterval(nextSlide, 5000);
     </script>
-
 </body>
 </html>
