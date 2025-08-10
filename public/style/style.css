@@ -308,7 +308,7 @@
             border-top: 10px solid transparent;
             border-bottom: 10px solid transparent;
             opacity: 0.5;
-            transition: opacity 1s ease;
+            transition: opacity 0.6 ease;
         }
 
         .carousel-indicators button.active {
@@ -329,7 +329,8 @@
             width: 100%;
             height: 100%;
             opacity: 0;
-            transition: opacity 0.2s ease-in-out;
+            transition: opacity 0.6s ease-in-out;
+      
         }
 
         .carousel-item.active {
@@ -387,7 +388,7 @@
 
         .carousel-caption.text-start {
             text-align: left;
-            color: black;
+            color: white;
             top: -15%;
         }
 
@@ -397,13 +398,13 @@
 
         .carousel-caption.text-start p {
             text-align: left;
-            color: black;
+            color: white;
             font-size: 30px;
         }
 
         .carousel-caption.text-end {
             text-align: right;
-            color: black;
+            color: white;
         }
 
         .carousel-caption.text-end h1 {
@@ -438,8 +439,8 @@
         }
 
         .carousel .btn-primary:hover {
-            background-color: #0b5ed7;
-            border-color: #0a58ca;
+            background-color: grey;
+            border-color: grey;
         }
 
         .carousel-control-prev,
@@ -457,7 +458,7 @@
             background: none;
             border: 0;
             opacity: 0.5;
-            transition: opacity 0.30 ease;
+            transition: opacity 0.6s ease;
             cursor: pointer;
         }
 
@@ -526,9 +527,29 @@
             transition: all 0.15s ease-in-out;
         }
 
+        .select-car-btn-dark{
+            margin-top: 2rem;
+            height: 4rem;
+            width: 10rem;
+            background-color: #dee2e600;
+            color: black;
+            border-style: none;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            vertical-align: middle;
+            cursor: pointer;
+            transition: all 0.15s ease-in-out;
+        }
+        
         .select-car-btn:hover{
             color: grey;
         }
+
+        .select-car-btn-dark:hover{
+            color: grey;
+        }
+
 
         .column {
             flex: 1;
@@ -550,7 +571,9 @@
 
         .content {
             margin: 2rem 0;
+            margin-bottom: 5rem;
             padding: 1.5rem 0;
+            padding-bottom: 3rem;
         }
 
         .headline {
