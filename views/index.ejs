@@ -1,42 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style/style.css">
-    <title>Online shop</title>
-</head>
-<body>
- <nav class="navbar" aria-label="Main navigation">
-        <button class="navbar-toggler" type="button" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        
-        <div class="navbar-collapse" id="navbar-collapse">
-            <a class="navbar-brand" href="#">QuickR</a>
-            
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" aria-expanded="false">Dropdown</a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </li>
-            </ul>
-            
-            <div class="navbar-end">
-                <button class="btn btn-primary">Button</button>
-            </div>
-        </div>
-    </nav>
+<%- include("partial/header.ejs") %>
 
     <div class="titlepage-container">
         <h1 class="header-title">Affordable Car Rentals Anytime, Anywhere!</h1>
@@ -105,7 +67,7 @@
                 <p class="subheading">Rate: ₱15,000/day (plus fuel) <br> Pickup Location: Makati City</p>
             </div>
             <div class="visual-element visual-light"><img src="/style/mitsu.jpg" width="400" height="200"></div>
-            <button class="select-car-btn"> Check this car > </button>
+            <a class="select-car-btn" href="/viewitem">Check this car ></a>
         </div>
         
         <div class="column column-light">
@@ -114,7 +76,7 @@
                 <p class="subheading">Rate: ₱15,000/day (plus fuel) <br> Pickup Location: Makati City</p>
             </div>
             <div class="visual-element visual-dark"><img src="/style/m3.jpg"></div>
-            <button class="select-car-btn-dark"> Check this car > </button>
+            <a class="select-car-btn" href="/viewitem">Check this car ></a>
         </div>
     </div>
 
@@ -136,89 +98,4 @@
         </div>
     </div>
   
-    <script>
-        // Navbar functionality
-        const toggler = document.querySelector('.navbar-toggler');
-        const collapse = document.querySelector('.navbar-collapse');
-
-        toggler.addEventListener('click', function() {
-            const isExpanded = toggler.getAttribute('aria-expanded') === 'true';
-            toggler.setAttribute('aria-expanded', !isExpanded);
-            collapse.classList.toggle('show');
-        });
-
-        // Dropdown functionality
-        const dropdownToggle = document.querySelector('.dropdown-toggle');
-        const dropdownMenu = document.querySelector('.dropdown-menu');
-        const dropdown = document.querySelector('.dropdown');
-
-        dropdownToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
-                if (menu !== dropdownMenu) {
-                    menu.classList.remove('show');
-                }
-            });
-            
-            const isExpanded = dropdownToggle.getAttribute('aria-expanded') === 'true';
-            dropdownToggle.setAttribute('aria-expanded', !isExpanded);
-            dropdownMenu.classList.toggle('show');
-        });
-
-        document.addEventListener('click', function(e) {
-            if (!dropdown.contains(e.target)) {
-                dropdownMenu.classList.remove('show');
-                dropdownToggle.setAttribute('aria-expanded', 'false');
-            }
-        });
-
-        dropdownMenu.addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
-
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function() {
-                if (window.innerWidth <= 991) {
-                    collapse.classList.remove('show');
-                    toggler.setAttribute('aria-expanded', 'false');
-                }
-            });
-        });
-
-        // Carousel functionality
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.carousel-item');
-        const indicators = document.querySelectorAll('.carousel-indicators button');
-        const totalSlides = slides.length;
-
-        function showSlide(n) {
-            slides[currentSlide].classList.remove('active');
-            indicators[currentSlide].classList.remove('active');
-            
-            currentSlide = (n + totalSlides) % totalSlides;
-            
-            slides[currentSlide].classList.add('active');
-            indicators[currentSlide].classList.add('active');
-        }
-
-        function nextSlide() {
-            showSlide(currentSlide + 1);
-        }
-
-        function prevSlide() {
-            showSlide(currentSlide - 1);
-        }
-
-        document.querySelector('.carousel-control-next').addEventListener('click', nextSlide);
-        document.querySelector('.carousel-control-prev').addEventListener('click', prevSlide);
-
-        indicators.forEach((indicator, index) => {
-            indicator.addEventListener('click', () => showSlide(index));
-        });
-
-        setInterval(nextSlide, 10000);
-    </script>
-</body>
-</html>
+<%- include("partial/footer.ejs") %>

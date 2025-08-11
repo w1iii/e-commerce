@@ -15,6 +15,12 @@ app.get("/", (req,res) =>{
     res.render("index");
 })
 
+
+app.get("/viewitem", (req,res) =>{
+    res.render("viewitem");
+})
+
+
 app.listen(port, ()=>{
     console.log(port);
 })

@@ -1,0 +1,87 @@
+
+    <script>
+        // Navbar functionality
+        const toggler = document.querySelector('.navbar-toggler');
+        const collapse = document.querySelector('.navbar-collapse');
+
+        toggler.addEventListener('click', function() {
+            const isExpanded = toggler.getAttribute('aria-expanded') === 'true';
+            toggler.setAttribute('aria-expanded', !isExpanded);
+            collapse.classList.toggle('show');
+        });
+
+        // Dropdown functionality
+        const dropdownToggle = document.querySelector('.dropdown-toggle');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+        const dropdown = document.querySelector('.dropdown');
+
+        dropdownToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
+                if (menu !== dropdownMenu) {
+                    menu.classList.remove('show');
+                }
+            });
+            
+            const isExpanded = dropdownToggle.getAttribute('aria-expanded') === 'true';
+            dropdownToggle.setAttribute('aria-expanded', !isExpanded);
+            dropdownMenu.classList.toggle('show');
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!dropdown.contains(e.target)) {
+                dropdownMenu.classList.remove('show');
+                dropdownToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        dropdownMenu.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 991) {
+                    collapse.classList.remove('show');
+                    toggler.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
+
+        // Carousel functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-item');
+        const indicators = document.querySelectorAll('.carousel-indicators button');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            indicators[currentSlide].classList.remove('active');
+            
+            currentSlide = (n + totalSlides) % totalSlides;
+            
+            slides[currentSlide].classList.add('active');
+            indicators[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        document.querySelector('.carousel-control-next').addEventListener('click', nextSlide);
+        document.querySelector('.carousel-control-prev').addEventListener('click', prevSlide);
+
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => showSlide(index));
+        });
+
+        setInterval(nextSlide, 10000);
+    </script>
+</body>
+</html>
