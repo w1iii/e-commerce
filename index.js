@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 // sample data base
 let rentalcars = [
     {
+        "car_id": 0o1,
         "car_name": "Mitsubishi 3000GT",
         "price": 0,
         "ownder_details": {
@@ -30,6 +31,12 @@ let rentalcars = [
     }
     // another car 
 ]
+
+
+// loop through the database and pass it to the index.ejs. cars will be loaded whatever is in the database.
+// cars have different unique ids. if the user will select a car it will load to the viewitem.
+
+
 
 
 app.get("/", (req,res) =>{
