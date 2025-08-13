@@ -41,12 +41,19 @@ let rentalcars = [
 
 app.get("/", (req,res) =>{
     res.render("index");
+    console.log(req.body);
 })
 
 
 app.get("/viewitem", (req,res) =>{
     res.render("viewitem");
 })
+
+
+app.get("/contact", (req,res) =>{
+    res.render("contact");
+})
+
 
 
 app.listen(port, ()=>{
