@@ -25,10 +25,44 @@
         </ul>
 
 
-        <a href="#" class="rentcar-btn">RENT</a>
+        <button class="rentcar-btn" id="rentcar-btn">RENT</button>
 
     </div>
 </div>
+
+<div class="modal" id="rentModal">
+  <div class="modal-content">
+    <span class="close" id="closeModal">&times;</span>
+    <h2>Book Your Rental</h2>
+
+    <form>
+      <label>Pickup Date</label>
+      <input type="date" required>
+
+      <label>Return Date</label>
+      <input type="date" required>
+
+      <label>Pickup Location</label>
+      <select required>
+        <option value="">Select Location</option>
+        <option>Manila</option>
+        <option>Cebu</option>
+        <option>Davao</option>
+      </select>
+
+      <label>Add-ons</label>
+      <select>
+        <option>None</option>
+        <option>GPS</option>
+        <option>Child Seat</option>
+        <option>Driver</option>
+      </select>
+
+      <button type="submit" class="confirm-btn">Confirm Booking</button>
+    </form>
+  </div>
+</div>
+
 
 <hr>
 <h1 class="owner-details-title">Owner details</h1>
@@ -49,3 +83,5 @@
             </div>
     </div>
 </div>
+
+<%- include("partial/footer.ejs") %>

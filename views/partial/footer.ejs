@@ -82,6 +82,156 @@
         });
 
         setInterval(nextSlide, 10000);
-    </script>
+
+        const modal = document.getElementById('rentModal');
+        const rentBtn = document.getElementById('rentcar-btn');
+        const closeBtn = document.getElementById('closeModal');
+        const form = document.getElementById('rentalForm');
+
+        // Open modal when rent button is clicked
+        rentBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        });
+
+        // Close modal when X is clicked
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        });
+
+        // Close modal when clicking outside of it
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.style.display === 'block') {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Handle form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            try {
+                // Get form data
+                const formData = new FormData(form);
+                const pickupDate = formData.get('pickupDate');
+                const returnDate = formData.get('returnDate');
+                const pickupLocation = formData.get('pickupLocation');
+                const addons = formData.get('addons');
+
+                // Validation
+                if (!pickupDate || !returnDate || !pickupLocation) {
+                    alert('Please fill in all required fields!');
+                    return;
+                }
+
+                if (new Date(pickupDate) >= new Date(returnDate)) {
+                    alert('Return date must be after pickup date!');
+                    return;
+                }
+
+                // Calculate rental days and total cost
+                const pickupDateTime = new Date(pickupDate);
+                const returnDateTime = new Date(returnDate);
+                const days = Math.ceil((returnDateTime - pickupDateTime) / (1000 * 60 * 60 * 24));
+                const baseTotal = days * 15000;
+
+                // Add-on costs
+                let addonCost = 0;
+                let addonText = 'None';
+                
+                if (addons) {
+                    addonText = addons;
+                    switch(addons) {
+                        case 'GPS':
+                            addonCost = days * 500;
+                            break;
+                        case 'Child Seat':
+                            addonCost = days * 300;
+                            break;
+                        case 'Driver':
+                            addonCost = days * 2000;
+                            break;
+                        case 'Insurance':
+                            addonCost = days * 800;
+                            break;
+                    }
+                }
+
+                const totalCost = baseTotal + addonCost;
+
+                // Show confirmation with detailed breakdown
+                const confirmationMessage = `🚗 BOOKING CONFIRMATION 🚗
+
+Car: Mitsubishi 3000GT
+Pickup Date: ${pickupDate}
+Return Date: ${returnDate}
+Location: ${pickupLocation}
+Duration: ${days} day${days > 1 ? 's' : ''}
+Add-ons: ${addonText}
+
+💰 COST BREAKDOWN:
+Base Rental: ₱${baseTotal.toLocaleString()} (₱15,000/day × ${days} day${days > 1 ? 's' : ''})
+Add-on Cost: ₱${addonCost.toLocaleString()}
+Subtotal: ₱${totalCost.toLocaleString()}
+Security Deposit: ₱20,000 (refundable)
+
+TOTAL PAYABLE: ₱${(totalCost + 20000).toLocaleString()}
+
+📞 We'll contact you at the provided number to confirm your booking!
+
+Thank you for choosing our service! 🙏`;
+
+                alert(confirmationMessage);
+                
+                // Close modal and reset form
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+                form.reset();
+                
+            } catch (error) {
+                console.error('Booking error:', error);
+                alert('Something went wrong. Please try again.');
+            }
+        });
+
+        // Set minimum date to today for both date inputs
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('pickupDate').min = today;
+        document.getElementById('returnDate').min = today;
+
+        // Update return date minimum when pickup date changes
+        document.getElementById('pickupDate').addEventListener('change', function() {
+            const pickupDate = new Date(this.value);
+            pickupDate.setDate(pickupDate.getDate() + 1);
+            document.getElementById('returnDate').min = pickupDate.toISOString().split('T')[0];
+            
+            // Clear return date if it's before the new pickup date
+            const returnDateInput = document.getElementById('returnDate');
+            if (returnDateInput.value && new Date(returnDateInput.value) <= new Date(this.value)) {
+                returnDateInput.value = '';
+            }
+        });
+
+        // Add loading state to the rent button
+        rentBtn.addEventListener('mousedown', function() {
+            this.style.transform = 'scale(0.98)';
+        });
+
+        rentBtn.addEventListener('mouseup', function() {
+            this.style.transform = 'scale(1)';
+        });
+        
+        </script>
 </body>
 </html>
