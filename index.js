@@ -1,9 +1,22 @@
 import express from "express";
 import bodyParser from "body-parser";
+import pg from "pg"
 
 
 const app = express();
+
 const port = 3000;
+
+const db = new pg.Client({
+  user: "postgres",
+  host: "localhost",
+  database: "world",
+  password: "luifranz2004",
+  port: 5432,
+});
+
+await db.connect();
+
 
 app.set('view engine', 'ejs');
 
@@ -12,34 +25,29 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 
 
-
-// sample data base
-let rentalcars = [
-    {
-        "car_id": 0o1,
-        "car_name": "Mitsubishi 3000GT",
-        "price": 0,
-        "ownder_details": {
-            "owner_name": "name",
-            "age": 0,
-            "address": "address",
-            "contact": 63 + "+",
-            "socials": [
-            ]
-        }
-        
-    }
-    // another car 
-]
-
-
-// loop through the database and pass it to the index.ejs. cars will be loaded whatever is in the database.
-// cars have different unique ids. if the user will select a car it will load to the viewitem.
+let rentalcars = [];
 
 
 
+app.get("/", async (req,res) =>{
+    try {
+    const result = await db.query(`
+      SELECT 
+        c.id,
+        c.name,
+        c.img,
+        r.rate,
+        r.pickup_location
+      FROM car c
+      JOIN rental r ON c.rental_id = r.id
+    `);
 
-app.get("/", (req,res) =>{
+    console.log("index", { cars: result.rows });
+  } catch (err) {
+    console.error(err);
+    res.send("Error loading cars");
+  }
+
     res.render("index");
     console.log(req.body);
 })
