@@ -7,15 +7,15 @@ const app = express();
 
 const port = 3000;
 
-const db = new pg.Client({
-  user: "postgres",
-  host: "localhost",
-  database: "world",
-  password: "luifranz2004",
-  port: 5432,
-});
+// const db = new pg.Client({
+//   user: "postgres",
+//   host: "localhost",
+//   database: "world",
+//   password: "luifranz2005",
+//   port: 5433,
+// });
 
-await db.connect();
+// await db.connect();
 
 
 app.set('view engine', 'ejs');
@@ -30,23 +30,23 @@ let rentalcars = [];
 
 
 app.get("/", async (req,res) =>{
-    try {
-    const result = await db.query(`
-      SELECT 
-        c.id,
-        c.name,
-        c.img,
-        r.rate,
-        r.pickup_location
-      FROM car c
-      JOIN rental r ON c.rental_id = r.id
-    `);
+  //   try {
+  //   const result = await db.query(`
+  //     SELECT 
+  //       c.id,
+  //       c.name,
+  //       c.img,
+  //       r.rate,
+  //       r.pickup_location
+  //     FROM car c
+  //     JOIN rental r ON c.rental_id = r.id
+  //   `);
 
-    console.log("index", { cars: result.rows });
-  } catch (err) {
-    console.error(err);
-    res.send("Error loading cars");
-  }
+  //   console.log("index", { cars: result.rows });
+  // } catch (err) {
+  //   console.error(err);
+  //   res.send("Error loading cars");
+  // }
 
     res.render("index");
     console.log(req.body);
