@@ -14,7 +14,7 @@
         
         <div class="carousel-inner">
             <div class="carousel-item active">
-               <img src="/style/driveby.jpg">
+               <img src="/style/driveby.jpg" alt="Summer Getaway">
 
                 <div class="carousel-container">
                     <div class="carousel-caption text-start">
@@ -26,7 +26,7 @@
             </div>
             
             <div class="carousel-item">
-                <img src="/style/hyundai.jpg">
+                <img src="/style/hyundai.jpg" alt="First Time Customer">
                 <div class="carousel-container">
                     <div class="carousel-caption-mid">
                         <h1>FIRST-TIME CUSTOMER DEAL</h1>
@@ -37,7 +37,7 @@
             </div>
             
             <div class="carousel-item">
-                <img src="/style/adventure.jpg">
+                <img src="/style/adventure.jpg" alt="Last Minute Deals">
 
                 <div class="carousel-container">
                     <div class="carousel-caption text-end">
@@ -61,40 +61,56 @@
     </div>
 
     <div class="two-column-container">
-        <div class="column column-dark">
-            <div class="content">
-                <h2 class="headline">Mitsubishi 3000GT</h2>
-                <p class="subheading">Rate: ₱15,000/day (plus fuel) <br> Pickup Location: Makati City</p>
+        <% if (cars && cars.length > 0) { %>
+            <% cars.slice(0, 2).forEach((car, index) => { %>
+                <div class="column <%= index % 2 === 0 ? 'column-dark' : 'column-light' %>">
+                    <div class="content">
+                        <h2 class="headline"><%= car.name %></h2>
+                        <p class="subheading">
+                            Rate: ₱<%= parseFloat(car.rate_per_day).toLocaleString() %>/day (plus fuel) <br> 
+                            Pickup Location: <%= car.pickup_location %>
+                        </p>
+                    </div>
+                    <div class="visual-element <%= index % 2 === 0 ? 'visual-light' : 'visual-dark' %>">
+                        <img src="<%= car.image_url %>" alt="<%= car.name %>" width="400" height="200">
+                    </div>
+                    <a class="<%= index % 2 === 0 ? 'select-car-btn' : 'select-car-btn-dark' %>" href="/viewitem/<%= car.id %>">
+                        Check this car >
+                    </a>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <!-- Fallback if no cars available -->
+            <div class="column column-dark">
+                <div class="content">
+                    <h2 class="headline">No Cars Available</h2>
+                    <p class="subheading">Check back soon for new listings!</p>
+                </div>
+                <div class="visual-element visual-light"></div>
             </div>
-            <div class="visual-element visual-light"><img src="/style/mitsu.jpg" width="400" height="200"></div>
-            <a class="select-car-btn" href="/viewitem">Check this car ></a>
-        </div>
-        <div class="column column-light">
-            <div class="content">
-                <h2 class="headline">M3 Competition</h2>
-                <p class="subheading">Rate: ₱15,000/day (plus fuel) <br> Pickup Location: Makati City</p>
-            </div>
-            <div class="visual-element visual-dark"><img src="/style/m3.jpg"></div>
-            <a class="select-car-btn-dark" href="/viewitem">Check this car ></a>
-        </div>
+        <% } %>
     </div>
 
+    <% if (cars && cars.length > 2) { %>
     <div class="two-column-container">
-        <div class="column column-light">
-            <div class="content">
-                <h2 class="headline">Another headline</h2>
-                <p class="subheading">And an even wittier subheading.</p>
+        <% cars.slice(2, 4).forEach((car, index) => { %>
+            <div class="column <%= index % 2 === 0 ? 'column-light' : 'column-dark' %>">
+                <div class="content">
+                    <h2 class="headline"><%= car.name %></h2>
+                    <p class="subheading">
+                        Rate: ₱<%= parseFloat(car.rate_per_day).toLocaleString() %>/day (plus fuel) <br> 
+                        Pickup Location: <%= car.pickup_location %>
+                    </p>
+                </div>
+                <div class="visual-element <%= index % 2 === 0 ? 'visual-dark' : 'visual-light' %>">
+                    <img src="<%= car.image_url %>" alt="<%= car.name %>" width="400" height="200">
+                </div>
+                <a class="<%= index % 2 === 0 ? 'select-car-btn-dark' : 'select-car-btn' %>" href="/viewitem/<%= car.id %>">
+                    Check this car >
+                </a>
             </div>
-            <div class="visual-element visual-dark"></div>
-        </div>
-
-       <div class="column column-dark">
-            <div class="content">
-                <h2 class="headline">Another headline</h2>
-                <p class="subheading">And an even wittier subheading.</p>
-            </div>
-            <div class="visual-element visual-light"></div>
-        </div>
+        <% }) %>
     </div>
+    <% } %>
   
 <%- include("partial/footer.ejs") %>

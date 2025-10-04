@@ -1,23 +1,21 @@
 <%- include("partial/header.ejs") %>
 
 <h1 class="title-item">
-    Mitsubishi 3000GT
+    <%= car.name %>
 </h1>
 <div class="container-item">
-    <img src="/style/mitsu.jpg">
+    <img src="<%= car.image_url %>" alt="<%= car.name %>">
     <div class="item-details">
        <h2>Rental Details</h2>
         <ul>
-            <li>📍 Pickup Location: Makati City</li>
-            <li>💵 Rate: ₱15,000/day (plus fuel)</li>
-            <li>📅 Availability: Weekdays & Weekends</li>
-            <li>🔑 Security Deposit: ₱20,000 refundable</li>
-            <li>⛽ Fuel Policy: Return full</li>
+            <li>📍 Pickup Location: <%= car.pickup_location %></li>
+            <li>💵 Rate: ₱<%= parseFloat(car.rate_per_day).toLocaleString() %>/day (plus fuel)</li>
+            <li>📅 Availability: <%= car.availability ? 'Weekdays & Weekends' : 'Not Available' %></li>
+            <li>🔑 Security Deposit: ₱<%= parseFloat(car.security_deposit).toLocaleString() %> refundable</li>
+            <li>⛽ Fuel Policy: <%= car.fuel_policy %></li>
         </ul>
 
-
         <button class="rentcar-btn" id="rentcar-btn">RENT</button>
-
     </div>
 </div>
 
@@ -26,27 +24,39 @@
     <span class="close" id="closeModal">&times;</span>
     <h2>Book Your Rental</h2>
 
-    <form>
+    <form id="bookingForm">
+      <input type="hidden" name="car_id" value="<%= car.id %>">
+      
+      <label>Full Name</label>
+      <input type="text" name="customer_name" required>
+
+      <label>Email</label>
+      <input type="email" name="customer_email" required>
+
+      <label>Phone Number</label>
+      <input type="tel" name="customer_phone" required>
+
       <label>Pickup Date</label>
-      <input type="date" required>
+      <input type="date" name="rental_start" required>
 
       <label>Return Date</label>
-      <input type="date" required>
+      <input type="date" name="rental_end" required>
 
       <label>Pickup Location</label>
-      <select required>
+      <select name="pickup_location" required>
         <option value="">Select Location</option>
-        <option>Manila</option>
-        <option>Cebu</option>
-        <option>Davao</option>
+        <option value="<%= car.pickup_location %>" selected><%= car.pickup_location %></option>
+        <option value="Manila">Manila</option>
+        <option value="Cebu">Cebu</option>
+        <option value="Davao">Davao</option>
       </select>
 
       <label>Add-ons</label>
-      <select>
-        <option>None</option>
-        <option>GPS</option>
-        <option>Child Seat</option>
-        <option>Driver</option>
+      <select name="addons">
+        <option value="">None</option>
+        <option value="GPS">GPS</option>
+        <option value="Child Seat">Child Seat</option>
+        <option value="Driver">Driver</option>
       </select>
 
       <button type="submit" class="confirm-btn">Confirm Booking</button>
@@ -54,25 +64,90 @@
   </div>
 </div>
 
-
 <hr>
 <h1 class="owner-details-title">Owner details</h1>
 <div class="owner-container">
     <div class="owner-details">
-        <svg width="500" height="500">
-            <circle cx="250" cy="250" r="250" 
-                fill="#d3d3d3" 
-                stroke="#999999" 
-                stroke-width="1"/>
+        <% if (car.owner_profile_image) { %>
+            <img src="<%= car.owner_profile_image %>" alt="<%= car.owner_name %>" style="width: 500px; height: 500px; border-radius: 50%; object-fit: cover;">
+        <% } else { %>
+            <svg width="500" height="500">
+                <circle cx="250" cy="250" r="250" 
+                    fill="#d3d3d3" 
+                    stroke="#999999" 
+                    stroke-width="1"/>
             </svg>
-            <div class="owner-info-container">
-                <p class="owner-info">Name: Lui Franz A. Lomugdang </p>
-                <p class="owner-info">Age: 21y/o</p>
-                <p class="owner-info">Address: San Carlos Ave., Sta. Clara Ph2, Banago, Bacolod City</p>
-                <p class="owner-info">Contact: 09937051527</p>
-                <p class="owner-info">Socials: fb.com/lyfrenzz ig.com./lyfrenzz</p>
-            </div>
+        <% } %>
+        <div class="owner-info-container">
+            <p class="owner-info">Name: <%= car.owner_name %></p>
+            <p class="owner-info">Age: <%= car.owner_age %></p>
+            <p class="owner-info">Address: <%= car.owner_address %></p>
+            <p class="owner-info">Contact: <%= car.owner_contact %></p>
+            <p class="owner-info">Socials: <%= car.owner_facebook %> <%= car.owner_instagram %></p>
+        </div>
     </div>
 </div>
+
+<script>
+// Modal functionality
+const modal = document.getElementById('rentModal');
+const btn = document.getElementById('rentcar-btn');
+const closeBtn = document.getElementById('closeModal');
+
+btn.onclick = function() {
+  modal.style.display = 'block';
+}
+
+closeBtn.onclick = function() {
+  modal.style.display = 'none';
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = 'none';
+  }
+}
+
+// Form submission
+document.getElementById('bookingForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const formData = new FormData(e.target);
+  const data = Object.fromEntries(formData);
+  
+  try {
+    const response = await fetch('/book', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    });
+    
+    const result = await response.json();
+    
+    if (result.success) {
+      alert('Booking request submitted successfully!');
+      modal.style.display = 'none';
+      e.target.reset();
+    } else {
+      alert('Error: ' + result.message);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert('Failed to submit booking request');
+  }
+});
+
+// Set minimum date to today
+const today = new Date().toISOString().split('T')[0];
+document.querySelector('input[name="rental_start"]').setAttribute('min', today);
+document.querySelector('input[name="rental_end"]').setAttribute('min', today);
+
+// Update return date minimum when pickup date changes
+document.querySelector('input[name="rental_start"]').addEventListener('change', function() {
+  document.querySelector('input[name="rental_end"]').setAttribute('min', this.value);
+});
+</script>
 
 <%- include("partial/footer.ejs") %>
