@@ -1,55 +1,84 @@
 
     <script>
-        // Navbar functionality
-        const toggler = document.querySelector('.navbar-toggler');
-        const collapse = document.querySelector('.navbar-collapse');
+        document.addEventListener('DOMContentLoaded', function() {
+    // Navbar toggle functionality
+    const toggler = document.querySelector('.navbar-toggler');
+    const collapse = document.querySelector('.navbar-collapse');
 
+    if (toggler && collapse) {
         toggler.addEventListener('click', function() {
             const isExpanded = toggler.getAttribute('aria-expanded') === 'true';
             toggler.setAttribute('aria-expanded', !isExpanded);
             collapse.classList.toggle('show');
         });
+    }
 
-        // Dropdown functionality
-        const dropdownToggle = document.querySelector('.dropdown-toggle');
-        const dropdownMenu = document.querySelector('.dropdown-menu');
-        const dropdown = document.querySelector('.dropdown');
+    // Dropdown functionality - handles ALL dropdowns
+    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+    
+    dropdownToggles.forEach(function(dropdownToggle) {
+        const dropdownMenu = dropdownToggle.nextElementSibling;
+        const dropdown = dropdownToggle.closest('.dropdown');
 
-        dropdownToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
+        if (dropdownToggle && dropdownMenu) {
+            dropdownToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // Close all other dropdowns
+                document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
+                    if (menu !== dropdownMenu) {
+                        menu.classList.remove('show');
+                        const otherToggle = menu.previousElementSibling;
+                        if (otherToggle) {
+                            otherToggle.setAttribute('aria-expanded', 'false');
+                        }
+                    }
+                });
+                
+                // Toggle current dropdown
+                const isExpanded = dropdownToggle.getAttribute('aria-expanded') === 'true';
+                dropdownToggle.setAttribute('aria-expanded', !isExpanded);
+                dropdownMenu.classList.toggle('show');
+            });
+
+            // Prevent dropdown from closing when clicking inside it
+            if (dropdownMenu) {
+                dropdownMenu.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            }
+        }
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.dropdown')) {
             document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
-                if (menu !== dropdownMenu) {
-                    menu.classList.remove('show');
+                menu.classList.remove('show');
+                const toggle = menu.previousElementSibling;
+                if (toggle) {
+                    toggle.setAttribute('aria-expanded', 'false');
                 }
             });
-            
-            const isExpanded = dropdownToggle.getAttribute('aria-expanded') === 'true';
-            dropdownToggle.setAttribute('aria-expanded', !isExpanded);
-            dropdownMenu.classList.toggle('show');
-        });
+        }
+    });
 
-        document.addEventListener('click', function(e) {
-            if (!dropdown.contains(e.target)) {
-                dropdownMenu.classList.remove('show');
-                dropdownToggle.setAttribute('aria-expanded', 'false');
+    // Close mobile menu when clicking nav links
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Don't close if it's a dropdown toggle
+            if (!this.classList.contains('dropdown-toggle')) {
+                if (window.innerWidth <= 991 && collapse) {
+                    collapse.classList.remove('show');
+                    if (toggler) {
+                        toggler.setAttribute('aria-expanded', 'false');
+                    }
+                }
             }
         });
-
-        dropdownMenu.addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
-
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function() {
-                if (window.innerWidth <= 991) {
-                    collapse.classList.remove('show');
-                    toggler.setAttribute('aria-expanded', 'false');
-                }
-            });
-        });
-
+    });
+});
         // Carousel functionality
         let currentSlide = 0;
         const slides = document.querySelectorAll('.carousel-item');
@@ -232,6 +261,10 @@ Thank you for choosing our service! 🙏`;
             this.style.transform = 'scale(1)';
         });
         
+        
+
+
+
         </script>
 </body>
 </html>
