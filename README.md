@@ -1,0 +1,1 @@
+**QuickR** is a convenient car rental platform that connects car owners with people who need a ride. Whether you’re looking to earn from your idle car or rent one quickly for your next trip, QuickR makes the process fast, easy, and reliable.
